@@ -89,6 +89,34 @@ export async function carregarMenu() {
                 link.classList.add('active');
             }
         });
+
+        // 5. Injetar Botão Mobile Header e Overlay
+        const header = document.querySelector('.top-header');
+        if (header && !document.getElementById('btn-mobile-menu')) {
+            const btn = document.createElement('button');
+            btn.id = 'btn-mobile-menu';
+            btn.className = 'btn-mobile-menu';
+            btn.innerHTML = '<i class="ph ph-list"></i>';
+            // Ocultado nativamente via .btn-mobile-menu no CSS (só aparece <=768px)
+            
+            header.insertBefore(btn, header.firstChild);
+
+            const overlay = document.createElement('div');
+            overlay.className = 'sidebar-overlay';
+            document.body.appendChild(overlay);
+
+            btn.addEventListener('click', () => {
+                const sidebar = document.querySelector('.sidebar');
+                if(sidebar) sidebar.classList.add('mobile-open');
+                overlay.classList.add('active');
+            });
+
+            overlay.addEventListener('click', () => {
+                const sidebar = document.querySelector('.sidebar');
+                if(sidebar) sidebar.classList.remove('mobile-open');
+                overlay.classList.remove('active');
+            });
+        }
         
     } catch (error) {
         console.error("Erro ao injetar o menu lateral:", error);
