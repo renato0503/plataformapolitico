@@ -1,0 +1,131 @@
+/* css/demandas.css */
+
+.kanban-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: start;
+    height: calc(100vh - 180px); /* Ocupa o resto da tela */
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+
+.kanban-column {
+    background: #EDF2F7;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
+
+.kanban-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.kanban-header h3 {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.kanban-count {
+    background: var(--surface-color);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.kanban-cards {
+    padding: 15px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* O Cartão da Demanda */
+.k-card {
+    background: var(--surface-color);
+    padding: 15px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-left: 4px solid transparent;
+    transition: transform 0.2s;
+}
+
+.k-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.k-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.k-card-bairro {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.k-card-data {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.k-card-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+
+.k-card-msg {
+    font-size: 0.85rem;
+    color: var(--text-main);
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.k-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+}
+
+.btn-move {
+    background: transparent;
+    border: none;
+    color: var(--info);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-move:hover {
+    color: var(--primary-color);
+}
+
+/* Cores da borda do card baseadas na coluna */
+#col-nova .k-card { border-left-color: var(--info); }
+#col-analise .k-card { border-left-color: var(--warning); }
+#col-respondida .k-card { border-left-color: var(--primary-color); }
+#col-encerrada .k-card { border-left-color: var(--accent-color); opacity: 0.7; }

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento de Redes — EloEleitoral</title>
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/painel.css">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .radar-grid { display: grid; grid-template-columns: 1fr 350px; gap: 20px; align-items: start; margin-top: 20px; }
+        
+        .bot-status-barra { background: linear-gradient(90deg, #1A365D 0%, #2B6CB0 100%); color: white; padding: 15px 20px; border-radius: var(--radius-lg); display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;}
+        .bot-status-barra .pulse { display: inline-block; width: 10px; height: 10px; background: #38A169; border-radius: 50%; box-shadow: 0 0 10px #38A169; animation: pulso 1.5s infinite; margin-right: 10px; }
+        @keyframes pulso { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
+
+        .config-redes-box { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+        .rede-btn { background: var(--bg-color); border: 1px solid var(--border-color); padding: 8px 15px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 8px; font-weight: 500; cursor: pointer; transition: all 0.2s;}
+        .rede-btn.active { border-color: var(--primary-color); background: #EBF8FF; }
+        .rede-btn:hover { background: #EDF2F7; }
+
+        .keywords-input-wrapper { display: flex; gap: 10px; margin-top: 15px; }
+        .keywords-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+        .keyword-tag { background: var(--primary-color); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; display: flex; align-items: center; gap: 5px; }
+        .keyword-tag i { cursor: pointer; }
+
+        /* Feed do Radar */
+        .radar-feed { max-height: 500px; overflow-y: auto; padding-right: 10px; display: flex; flex-direction: column; gap: 12px;}
+        .radar-feed::-webkit-scrollbar { width: 6px; }
+        .radar-feed::-webkit-scrollbar-thumb { background: #CBD5E0; border-radius: 4px; }
+        .mention-card { background: white; border: 1px solid var(--border-color); padding: 15px; border-radius: var(--radius-lg); display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow-sm); animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .mention-header { display: flex; justify-content: space-between; align-items: center; }
+        .mention-source { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.9rem; color: var(--text-main); }
+        .mention-time { font-size: 0.8rem; color: var(--text-muted); }
+        .mention-content { font-size: 0.95rem; color: var(--text-main); line-height: 1.5; }
+        .mention-content mark { background: #FEFCBF; color: #744210; padding: 0 4px; border-radius: 3px; font-weight: bold; }
+        
+        .sentiment-badge { font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sentiment-badge.positive { background: #F0FFF4; color: #2F855A; border: 1px solid #C6F6D5; }
+        .sentiment-badge.negative { background: #FFF5F5; color: #C53030; border: 1px solid #FED7D7; }
+        .sentiment-badge.neutral { background: #EDF2F7; color: #4A5568; border: 1px solid #E2E8F0; }
+
+        /* Relatórios Box */
+        .relatorios-box { margin-top: 20px; }
+        .relatorio-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 10px; }
+        
+        @media (max-width: 900px) {
+            .radar-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="dashboard-layout">
+        
+        <div id="sidebar-container"></div>
+
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-search">
+                    <i class="ph ph-magnifying-glass" style="color: var(--text-muted);"></i>
+                    <input type="text" placeholder="Buscar por palavra-chave ou termo...">
+                </div>
+                <div class="header-actions">
+                    <i class="ph ph-bell" style="font-size: 1.4rem; color: var(--text-muted); cursor: pointer;"></i>
+                    <div class="user-profile">
+                        <div class="avatar">GB</div>
+                        Gabinete
+                    </div>
+                </div>
+            </header>
+
+            <main class="painel-content">
+                <div class="page-title">
+                    <h2><i class="ph ph-radar" style="margin-right: 8px; color: var(--accent-color);"></i> Monitoramento de Redes</h2>
+                    <a href="#" class="btn btn-outline" onclick="alert('Configurações salvas!')">
+                        <i class="ph ph-floppy-disk" style="margin-right: 8px;"></i> Salvar Configuração
+                    </a>
+                </div>
+
+                <div class="bot-status-barra">
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.2rem; display: flex; align-items: center;">
+                            <span class="pulse"></span> Bot Crawler: Operacional
+                        </h3>
+                        <p style="margin: 5px 0 0 0; font-size: 0.9rem; opacity: 0.8;">Escaneando redes sociais estruturadas e portais de notícias em tempo real.</p>
+                    </div>
+                </div>
+
+                <section class="card" style="margin-bottom: 20px;">
+                    <h3>Fontes Conectadas e Palavras-chave</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Selecione quais plataformas monitorar e conecte suas contas oficiais para capturar comentários.</p>
+                    
+                    <div class="config-redes-box">
+                        <button class="rede-btn active"><i class="ph-fill ph-instagram-logo" style="color: #E1306C; font-size: 1.2rem;"></i> Instagram</button>
+                        <button class="rede-btn active"><i class="ph-fill ph-facebook-logo" style="color: #1877F2; font-size: 1.2rem;"></i> Facebook</button>
+                        <button class="rede-btn active"><i class="ph-fill ph-twitter-logo" style="color: #1DA1F2; font-size: 1.2rem;"></i> X / Twitter</button>
+                        <button class="rede-btn active"><i class="ph-fill ph-google-logo" style="color: #DB4437; font-size: 1.2rem;"></i> Google News</button>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <h4>Critérios de Rastreio (Palavras-chave)</h4>
+                        <div class="keywords-input-wrapper">
+                            <input type="text" id="input-keyword" placeholder="Ex: @prefeitofalante, #saudecidade, Nome do Candidato" style="flex: 1;" class="input-form">
+                            <button id="add-keyword-btn" class="btn btn-primary">Adicionar</button>
+                        </div>
+                        <div class="keywords-tags" id="container-tags">
+                            <!-- Tags inseridas dinamicamente -->
+                            <span class="keyword-tag">@joaosilva <i class="ph-bold ph-x"></i></span>
+                            <span class="keyword-tag">#joaoprefeito <i class="ph-bold ph-x"></i></span>
+                            <span class="keyword-tag">saúde na cidade <i class="ph-bold ph-x"></i></span>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="radar-grid">
+                    <section class="card">
+                        <h3>Radar de Menções (Tempo Real)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Últimas postagens e comentários públicos capturados da internet.</p>
+                        
+                        <div class="radar-feed" id="radar-feed-container">
+                            <!-- Mensagens injetadas pelo bot-redes.js -->
+                        </div>
+                    </section>
+
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <section class="card chart-container">
+                            <h3>Sentimento da Reputação</h3>
+                            <div class="canvas-wrapper" style="height: 220px;">
+                                <canvas id="chartSentimento"></canvas>
+                            </div>
+                        </section>
+
+                        <section class="card relatorios-box">
+                            <h3>Relatórios Gerados</h3>
+                            <div class="relatorio-item">
+                                <div>
+                                    <strong>Resumo Matinal</strong><br>
+                                    <span style="font-size: 0.8rem; color: var(--text-muted);">Hoje, 07:00</span>
+                                </div>
+                                <a href="#" class="btn btn-outline btn-sm"><i class="ph ph-download-simple"></i> PDF</a>
+                            </div>
+                            <div class="relatorio-item">
+                                <div>
+                                    <strong>Resumo Fechamento</strong><br>
+                                    <span style="font-size: 0.8rem; color: var(--text-muted);">Ontem, 18:00</span>
+                                </div>
+                                <a href="#" class="btn btn-outline btn-sm"><i class="ph ph-download-simple"></i> PDF</a>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Modulos da Pagina -->
+    <script type="module" src="js/pages/monitoramento-controller.js"></script>
+</body>
+</html>

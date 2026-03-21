@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações — EloEleitoral</title>
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/painel.css"> 
+    <link rel="stylesheet" href="css/configuracoes.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        
+        <div id="sidebar-container"></div>
+
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-search">
+                    <span style="color: var(--text-muted); font-weight: 500;">Administração do Sistema</span>
+                </div>
+                <div class="header-actions" style="margin-left: auto;">
+                    <div class="user-profile">
+                        <div class="avatar"><i class="ph ph-gear"></i></div>
+                        Setup do Sistema
+                    </div>
+                </div>
+            </header>
+
+            <main class="painel-content">
+                <div class="page-title">
+                    <h2>Configurações da Plataforma</h2>
+                </div>
+
+                <div class="config-grid" style="display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 800px;">
+                    <div class="card">
+                        <h3 style="margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Perfil e Ciclo</h3>
+                        <form id="form-config">
+                            <div class="form-group">
+                                <label class="form-label" for="nome-gabinete">Nome da Campanha / Gabinete</label>
+                                <input type="text" id="nome-gabinete" class="form-control" placeholder="Ex: Gabinete Renato">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="fase-campanha">Momento Atual (Ciclo)</label>
+                                <select id="fase-campanha" class="form-control">
+                                    <option value="diagnostico">Pré-Campanha (Diagnóstico de Bairros)</option>
+                                    <option value="campanha">Campanha Ativa (Mobilização)</option>
+                                    <option value="mandato">Mandato (Gestão e Resolução)</option>
+                                </select>
+                                <small style="color: var(--text-muted); display: block; margin-top: 5px;">Isso adaptará os textos do Portal do Cidadão no futuro.</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Salvar Configurações</button>
+                        </form>
+                    </div>
+
+                    <div class="card danger-zone" style="border: 1px solid var(--danger);">
+                        <h3 style="color: var(--danger); margin-bottom: 20px;">Zona de Perigo</h3>
+                        <p style="margin-bottom: 20px; color: var(--text-muted);">Ações destrutivas para o banco de dados local.</p>
+                        
+                        <button id="btn-limpar-dados" class="btn btn-outline" style="color: var(--danger); border-color: var(--danger); width: 100%;">
+                            <i class="ph ph-trash" style="margin-right: 8px;"></i> Apagar todas as Demandas Locais (Reset)
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module" src="js/pages/config-controller.js"></script>
+</body>
+</html>

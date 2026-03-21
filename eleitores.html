@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base de Eleitores — EloEleitoral</title>
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/painel.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        
+        <div id="sidebar-container"></div>
+
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-search">
+                    <i class="ph ph-magnifying-glass" style="color: var(--text-muted);"></i>
+                    <input type="text" id="busca-eleitor" placeholder="Buscar eleitor por nome, telefone ou bairro...">
+                </div>
+                <div class="header-actions">
+                    <i class="ph ph-bell" style="font-size: 1.4rem; color: var(--text-muted); cursor: pointer;"></i>
+                    <div class="user-profile">
+                        <div class="avatar">GB</div>
+                        Gabinete
+                    </div>
+                </div>
+            </header>
+
+            <main class="painel-content">
+                <div class="page-title">
+                    <h2>Gestão de Base e Lideranças</h2>
+                    <button id="btn-novo-eleitor" class="btn btn-primary">
+                        <i class="ph ph-user-plus" style="margin-right: 8px;"></i> Cadastrar Eleitor
+                    </button>
+                </div>
+
+                <div id="form-cadastro-eleitor" class="card" style="display: none; margin-bottom: 20px; border-left: 4px solid var(--accent-color);">
+                    <h3 style="margin-bottom: 15px;">Novo Cadastro</h3>
+                    <form id="form-eleitor" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;">
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Nome Completo</label>
+                            <input type="text" id="el-nome" class="form-control" placeholder="Ex: João da Silva" required>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">WhatsApp</label>
+                            <input type="text" id="el-tel" class="form-control" placeholder="(00) 00000-0000" required>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Bairro</label>
+                            <input type="text" id="el-bairro" class="form-control" placeholder="Ex: CPA, Centro..." required>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Nível de Influência</label>
+                            <select id="el-perfil" class="form-control">
+                                <option value="Apoiador">Apoiador Comum</option>
+                                <option value="Liderança">Liderança Comunitária</option>
+                                <option value="Indeciso">Eleitor Indeciso</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Potencial de Mobilização</label>
+                            <select id="el-mobilizacao" class="form-control">
+                                <option value="Baixo">Baixo (1 a 5 votos)</option>
+                                <option value="Médio">Médio (10 a 50 votos)</option>
+                                <option value="Alto">Alto (+50 votos)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1; margin:0;">
+                            <label class="form-label">Histórico / Notas de Interação</label>
+                            <textarea id="el-notas" class="form-control" rows="2" placeholder="Ex: Participou da reunião no bairro, prometeu colar adesivo no carro..."></textarea>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <button type="submit" class="btn btn-success" style="width: 100%; height: 42px;">Salvar no CRM</button>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <button type="button" id="btn-cancelar-el" class="btn btn-outline" style="width: 100%; height: 42px;">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <section class="table-section card">
+                    <div class="table-responsive">
+                        <table class="data-table" id="tabela-eleitores">
+                            <thead>
+                                <tr>
+                                    <th>Nome do Eleitor</th>
+                                    <th>Contato</th>
+                                    <th>Bairro</th>
+                                    <th>Perfil / Mobilização</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <script type="module" src="js/pages/eleitores-controller.js"></script>
+</body>
+</html>

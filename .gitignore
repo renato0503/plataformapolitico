@@ -1,0 +1,43 @@
+# Local environments
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# IDEs and Editors
+.vscode/
+.idea/
+.opencode/
+*.swp
+*.swo
+
+# OS Data Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Exported Data / Backups
+*.csv
+*.sql
+*.bak
+dump/
+backups/
+export/
+
+# Log files
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# AI Assistants / IDE integrations
+.gemini/
+.ai/
+copilot/

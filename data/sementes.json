@@ -1,0 +1,112 @@
+[
+  {
+    "id": "1710000000001",
+    "data": "2026-03-01T08:30:00.000Z",
+    "nome": "Carlos Mendes",
+    "contato": "(67) 99999-1111",
+    "bairro": "Pedra 90",
+    "categoria": "Infraestrutura",
+    "mensagem": "Precisamos urgente de tapa-buraco na avenida principal. Os ônibus estão desviando das rotas.",
+    "status": "Em análise",
+    "prioridade": "Alta"
+  },
+  {
+    "id": "1710000000002",
+    "data": "2026-03-02T10:15:00.000Z",
+    "nome": "Ana Paula Silva",
+    "contato": "ana.paula@email.com",
+    "bairro": "CPA II",
+    "categoria": "Saúde",
+    "mensagem": "Faltam médicos no posto de saúde durante o período da tarde. Filas enormes desde as 13h.",
+    "status": "Nova",
+    "prioridade": "Alta"
+  },
+  {
+    "id": "1710000000003",
+    "data": "2026-03-03T14:45:00.000Z",
+    "nome": "João Ribeiro",
+    "contato": "(67) 98888-2222",
+    "bairro": "Coxipó",
+    "categoria": "Segurança",
+    "mensagem": "Iluminação pública queimada na praça central do bairro há mais de 15 dias. Está perigoso à noite.",
+    "status": "Respondida",
+    "prioridade": "Média"
+  },
+  {
+    "id": "1710000000004",
+    "data": "2026-03-04T09:00:00.000Z",
+    "nome": "Mariana Costa",
+    "contato": "(67) 97777-3333",
+    "bairro": "Morada do Ouro",
+    "categoria": "Meio Ambiente",
+    "mensagem": "Muito mato alto nos terrenos baldios próximos à escola municipal. Foco de mosquitos.",
+    "status": "Encerrada",
+    "prioridade": "Média"
+  },
+  {
+    "id": "1710000000005",
+    "data": "2026-03-05T16:20:00.000Z",
+    "nome": "Ricardo Almeida",
+    "contato": "ricardo.alm@email.com",
+    "bairro": "Tijucal",
+    "categoria": "Transporte",
+    "mensagem": "A linha de ônibus 308 está atrasando muito todos os dias de manhã. Precisamos de mais carros na frota.",
+    "status": "Nova",
+    "prioridade": "Alta"
+  },
+  {
+    "id": "1710000000006",
+    "data": "2026-03-06T11:10:00.000Z",
+    "nome": "Fernanda Lima",
+    "contato": "(67) 96666-4444",
+    "bairro": "Centro Sul",
+    "categoria": "Educação",
+    "mensagem": "Creche municipal está precisando de reforma no telhado antes do período das chuvas.",
+    "status": "Em análise",
+    "prioridade": "Média"
+  },
+  {
+    "id": "1710000000007",
+    "data": "2026-03-07T13:40:00.000Z",
+    "nome": "Roberto Souza",
+    "contato": "(67) 95555-5555",
+    "bairro": "Pedra 90",
+    "categoria": "Assistência Social",
+    "mensagem": "Gostaria de saber como funciona o cadastro para os programas de cesta básica da prefeitura.",
+    "status": "Respondida",
+    "prioridade": "Baixa"
+  },
+  {
+    "id": "1710000000008",
+    "data": "2026-03-08T15:30:00.000Z",
+    "nome": "Lucia Ferreira",
+    "contato": "lucia.f@email.com",
+    "bairro": "CPA I",
+    "categoria": "Infraestrutura",
+    "mensagem": "Bueiro entupido na rua 12, sempre que chove alaga a calçada toda.",
+    "status": "Nova",
+    "prioridade": "Alta"
+  },
+  {
+    "id": "1710000000009",
+    "data": "2026-03-09T08:15:00.000Z",
+    "nome": "Paulo Castro",
+    "contato": "(67) 94444-6666",
+    "bairro": "Coxipó",
+    "categoria": "Saúde",
+    "mensagem": "Falta do medicamento de pressão na farmácia da UBS já faz um mês.",
+    "status": "Em análise",
+    "prioridade": "Alta"
+  },
+  {
+    "id": "1710000000010",
+    "data": "2026-03-09T10:50:00.000Z",
+    "nome": "Camila Silva",
+    "contato": "camila.silva@email.com",
+    "bairro": "Santa Rosa",
+    "categoria": "Infraestrutura",
+    "mensagem": "Calçadas totalmente irregulares perto da praça, dificultando a passagem de cadeirantes.",
+    "status": "Nova",
+    "prioridade": "Média"
+  }
+]

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipe e Voluntários — EloEleitoral</title>
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/painel.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        
+        <div id="sidebar-container"></div>
+
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-search">
+                    <i class="ph ph-magnifying-glass" style="color: var(--text-muted);"></i>
+                    <input type="text" id="busca-equipe" placeholder="Buscar membro da equipe ou região...">
+                </div>
+                <div class="header-actions">
+                    <i class="ph ph-bell" style="font-size: 1.4rem; color: var(--text-muted); cursor: pointer;"></i>
+                    <div class="user-profile">
+                        <div class="avatar">GB</div>
+                        Gabinete
+                    </div>
+                </div>
+            </header>
+
+            <main class="painel-content">
+                <div class="page-title">
+                    <h2>Gestão de Equipe e Mobilização</h2>
+                    <button id="btn-novo-membro" class="btn btn-primary">
+                        <i class="ph ph-identification-card" style="margin-right: 8px;"></i> Cadastrar Membro
+                    </button>
+                </div>
+
+                <div id="form-cadastro-equipe" class="card" style="display: none; margin-bottom: 20px; border-left: 4px solid var(--primary-color);">
+                    <h3 style="margin-bottom: 15px;">Adicionar à Equipe</h3>
+                    <form id="form-equipe" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;">
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Nome Completo</label>
+                            <input type="text" id="eq-nome" class="form-control" placeholder="Ex: Maria Souza" required>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">WhatsApp</label>
+                            <input type="text" id="eq-tel" class="form-control" placeholder="(65) 90000-0000" required>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Região de Atuação</label>
+                            <input type="text" id="eq-regiao" class="form-control" placeholder="Ex: Grande CPA, Coxipó..." required>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Cargo / Função</label>
+                            <select id="eq-cargo" class="form-control">
+                                <option value="Coordenador">Coordenador de Região</option>
+                                <option value="Cabo Eleitoral">Cabo Eleitoral / Mobilizador</option>
+                                <option value="Voluntário Digital">Voluntário Digital</option>
+                                <option value="Motorista">Motorista / Logística</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <button type="submit" class="btn btn-primary" style="width: 100%; height: 42px;">Salvar Membro</button>
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <button type="button" id="btn-cancelar-eq" class="btn btn-outline" style="width: 100%; height: 42px;">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <section class="table-section card">
+                    <div class="table-responsive">
+                        <table class="data-table" id="tabela-equipe">
+                            <thead>
+                                <tr>
+                                    <th>Membro da Equipe</th>
+                                    <th>Contato</th>
+                                    <th>Região Base</th>
+                                    <th>Função na Campanha</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <script type="module" src="js/pages/equipe-controller.js"></script>
+</body>
+</html>

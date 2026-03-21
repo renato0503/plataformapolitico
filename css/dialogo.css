@@ -1,0 +1,57 @@
+/* css/dialogo.css */
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.dialogo-header {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    padding: 40px 0;
+    text-align: center;
+    margin-bottom: -30px; /* Faz o card do formulário subir um pouco e sobrepor o header */
+}
+
+.dialogo-header h1 {
+    color: var(--surface-color);
+    margin-bottom: 10px;
+}
+
+.dialogo-header p {
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+.form-container {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 40px;
+}
+
+.btn-block {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Estado de Sucesso */
+.feedback-sucesso {
+    text-align: center;
+    padding: 30px 15px;
+    background-color: #F0FFF4;
+    border: 1px solid #C6F6D5;
+    border-radius: var(--radius-md);
+}
+
+.feedback-sucesso h3 {
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}

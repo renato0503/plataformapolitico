@@ -1,0 +1,48 @@
+/* css/global.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Paleta Institucional */
+    --primary-color: #1A365D;    /* Azul Profundo - Confiança e Estabilidade */
+    --primary-hover: #2B6CB0;
+    --accent-color: #38A169;     /* Verde - Progresso e Resoluções */
+    --accent-hover: #2F855A;
+    
+    /* Cores de Status e Alertas */
+    --danger: #E53E3E;           /* Vermelho - Urgente/Atrasado */
+    --warning: #D69E2E;          /* Amarelo - Pendente/Atenção */
+    --info: #3182CE;             /* Azul Claro - Informativo */
+    
+    /* Tons Neutros e Backgrounds */
+    --bg-color: #F7FAFC;         /* Fundo da aplicação */
+    --surface-color: #FFFFFF;    /* Fundo dos cards e painéis */
+    --text-main: #2D3748;        /* Texto principal */
+    --text-muted: #718096;       /* Texto secundário/apoio */
+    --border-color: #E2E8F0;     /* Linhas e separadores */
+    
+    /* Variáveis de Layout */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color);
+    font-weight: 600;
+}

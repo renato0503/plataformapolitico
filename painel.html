@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visão Geral (Painel) — EloEleitoral</title>
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/painel.css">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    
+    <div class="dashboard-layout">
+        
+        <div id="sidebar-container"></div>
+
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-search">
+                    <i class="ph ph-magnifying-glass" style="color: var(--text-muted);"></i>
+                    <input type="text" id="busca-tabela" placeholder="Buscar por nome, bairro...">
+                </div>
+                <div class="header-actions">
+                    <i class="ph ph-bell" style="font-size: 1.4rem; color: var(--text-muted); cursor: pointer;"></i>
+                    <div class="user-profile">
+                        <div class="avatar">GB</div>
+                        Gabinete
+                    </div>
+                </div>
+            </header>
+
+            <main class="painel-content">
+                <div class="page-title">
+                    <h2>Visão Geral da Campanha</h2>
+                    <a href="#" id="btn-exportar" class="btn btn-primary">
+                        <i class="ph ph-download-simple" style="margin-right: 8px;"></i> Exportar CSV
+                    </a>
+                </div>
+
+                <section class="kpi-grid">
+                    <div class="card stat-card">
+                        <h3>Total de Demandas</h3>
+                        <p id="kpi-total" class="stat-number">0</p>
+                    </div>
+                    <div class="card stat-card warning">
+                        <h3>Aguardando Análise</h3>
+                        <p id="kpi-novas" class="stat-number">0</p>
+                    </div>
+                    <div class="card stat-card success">
+                        <h3>Demandas Resolvidas</h3>
+                        <p id="kpi-resolvidas" class="stat-number">0</p>
+                    </div>
+                </section>
+
+                <section class="kpi-grid" style="margin-top: 20px;">
+                    <div class="card stat-card" style="border-left: 4px solid var(--primary-color); text-align: left;">
+                        <h3>Agenda de Hoje</h3>
+                        <p class="stat-number" style="font-size: 1.8rem; margin-top: 10px;">2 Compromissos</p>
+                        <a href="agenda.html" style="font-size: 0.85rem; color: var(--primary-color); font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">Ver Calendário Completo →</a>
+                    </div>
+                    <div class="card stat-card" style="border-left: 4px solid #38A169; text-align: left;">
+                        <h3>Sentimento Digital (Radar)</h3>
+                        <p class="stat-number" style="font-size: 1.8rem; margin-top: 10px; color: #38A169;">65% Positivo</p>
+                        <a href="monitoramento.html" style="font-size: 0.85rem; color: #38A169; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">Abrir Central de Monitoramento →</a>
+                    </div>
+                </section>
+
+                <section class="charts-grid">
+                    <div class="card chart-container">
+                        <h3>Demandas por Bairro (Termômetro)</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="chartBairros"></canvas>
+                        </div>
+                    </div>
+                    <div class="card chart-container">
+                        <h3>Temas Mais Recorrentes</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="chartCategorias"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="table-section card">
+                    <div class="table-header" style="margin-bottom: 15px;">
+                        <h3>Últimas Demandas Recebidas</h3>
+                        <a href="demandas.html" class="btn btn-outline btn-sm">Ir para o Kanban <i class="ph ph-arrow-right"></i></a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table" id="tabela-demandas">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Cidadão</th>
+                                    <th>Bairro</th>
+                                    <th>Categoria</th>
+                                    <th>Status</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="js/pages/painel-controller.js"></script>
+</body>
+</html>

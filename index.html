@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EloEleitoral — Conexão Direta e Gestão Inteligente</title>
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* Estilos da Landing Page SaaS */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: var(--surface-color); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); display: flex; align-items: center; gap: 8px; }
+        .logo i { color: var(--accent-color); font-size: 1.8rem; }
+        
+        .hero { background: linear-gradient(135deg, var(--primary-color) 0%, #2A4365 100%); color: white; padding: 80px 5%; overflow: hidden; }
+        .hero-split { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .hero-text h1 { color: white; font-size: 3.2rem; margin-bottom: 20px; line-height: 1.1; letter-spacing: -1px; }
+        .hero-text h1 span { color: var(--accent-color); }
+        .hero-text p { font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9; line-height: 1.6; }
+        .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+        .hero-buttons .btn { padding: 14px 28px; font-size: 1.1rem; border-radius: var(--radius-lg); }
+        
+        /* Prova Social / Stats */
+        .stats-section { display: flex; justify-content: center; gap: 60px; padding: 40px 5%; background: white; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; box-shadow: var(--shadow-sm); position: relative; z-index: 10;}
+        .stat-item { text-align: center; }
+        .stat-item h2 { font-size: 2.8rem; color: var(--primary-color); margin-bottom: 5px; line-height: 1; }
+        .stat-item p { color: var(--text-muted); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        /* Mockups & Explicação (A Visão do Político e Eleitor) */
+        .showcase { padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; color: var(--primary-color); }
+        .section-header p { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+
+        .showcase-row { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 100px; }
+        .showcase-row.reverse { grid-template-columns: 1fr 1fr; direction: rtl; }
+        .showcase-row.reverse > * { direction: ltr; }
+        
+        .showcase-text h3 { font-size: 2rem; margin-bottom: 20px; color: var(--primary-color); display: flex; align-items: center; gap: 15px; }
+        .showcase-text h3 i { background: #EBF8FF; color: var(--primary-color); padding: 15px; border-radius: 16px; }
+        .showcase-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
+        .showcase-text ul { list-style: none; padding: 0; margin-bottom: 30px; }
+        .showcase-text ul li { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-weight: 500; color: var(--text-main); }
+        .showcase-text ul li i { color: var(--accent-color); font-size: 1.4rem; }
+
+        /* Estilização dos SVGs */
+        .svg-container { background: var(--bg-color); padding: 40px; border-radius: 24px; box-shadow: inset 0 0 20px rgba(0,0,0,0.05); text-align: center; position: relative;}
+        .svg-container svg { max-width: 100%; height: auto; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1)); transition: transform 0.3s ease; }
+        .svg-container:hover svg { transform: translateY(-10px); }
+
+        /* Impacto Box */
+        .impact-box { background: linear-gradient(135deg, #EBF8FF 0%, white 100%); border: 1px solid #BEE3F8; padding: 30px; border-radius: var(--radius-lg); margin-top: 20px; }
+        .impact-box h4 { color: #2B6CB0; margin-bottom: 10px; font-size: 1.2rem; }
+        .impact-box p { font-size: 1rem; color: var(--text-main); margin-bottom: 0; }
+
+        /* CTA Final */
+        .cta-section { background: var(--primary-color); color: white; padding: 80px 5%; text-align: center; }
+        .cta-section h2 { font-size: 2.5rem; margin-bottom: 20px; color: white; }
+        .cta-section p { color: #E2E8F0; margin-bottom: 40px; font-size: 1.2rem; max-width: 600px; margin: 0 auto;}
+        
+        footer { background: var(--surface-color); padding: 40px 5%; text-align: center; border-top: 1px solid var(--border-color); }
+        .footer-admin-link { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-weight: 600; margin-top: 20px; padding: 10px 20px; border-radius: var(--radius-md); background: var(--bg-color); transition: background 0.2s; }
+        .footer-admin-link:hover { background: #E2E8F0; color: var(--primary-color); }
+
+        @media (max-width: 900px) {
+            .hero-split, .showcase-row, .showcase-row.reverse { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .showcase-text h3 { justify-content: center; }
+            .showcase-text ul li { justify-content: center; }
+            .hero-buttons { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="ph-fill ph-chat-circle-text"></i> EloEleitoral
+        </div>
+        <div>
+            <a href="dialogo.html" class="btn btn-outline" style="border-radius: var(--radius-lg);">Portal do Cidadão</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-split">
+            <div class="hero-text">
+                <h1>Política baseada em <span>dados reais.</span></h1>
+                <p>Uma plataforma inteligente para captar demandas da cidade, classificar prioridades com IA e fornecer um painel de gestão para seu gabinete tomar decisões e prestar contas.</p>
+                <div class="hero-buttons">
+                    <a href="painel.html" class="btn btn-success">
+                        <i class="ph ph-chart-line-up" style="margin-right: 8px; font-size: 1.2rem;"></i> Ver Demonstração do Painel
+                    </a>
+                    <a href="#como-funciona" class="btn" style="background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.2);">
+                        Como Funciona
+                    </a>
+                </div>
+            </div>
+            
+            <div class="svg-container" style="background: transparent; box-shadow: none;">
+                <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="50" width="460" height="300" rx="15" fill="#FFFFFF" opacity="0.1"/>
+                    <rect x="0" y="70" width="460" height="300" rx="15" fill="#FFFFFF" stroke="#38A169" stroke-width="2"/>
+                    <rect x="0" y="70" width="120" height="300" rx="15" fill="#F7FAFC"/>
+                    <circle cx="60" cy="110" r="20" fill="#1A365D" opacity="0.2"/>
+                    <rect x="20" y="150" width="80" height="10" rx="5" fill="#E2E8F0"/>
+                    <rect x="20" y="180" width="60" height="10" rx="5" fill="#E2E8F0"/>
+                    <rect x="140" y="90" width="300" height="20" rx="10" fill="#E2E8F0"/>
+                    <rect x="140" y="140" width="140" height="100" rx="10" fill="#EBF8FF"/>
+                    <rect x="155" y="180" width="20" height="40" rx="3" fill="#3182CE"/>
+                    <rect x="185" y="160" width="20" height="60" rx="3" fill="#1A365D"/>
+                    <rect x="215" y="190" width="20" height="30" rx="3" fill="#38A169"/>
+                    <rect x="245" y="150" width="20" height="70" rx="3" fill="#D69E2E"/>
+                    <rect x="300" y="140" width="140" height="100" rx="10" fill="#F0FFF4"/>
+                    <circle cx="370" cy="190" r="30" fill="transparent" stroke="#38A169" stroke-width="15" stroke-dasharray="100 40"/>
+                    <circle cx="370" cy="190" r="30" fill="transparent" stroke="#1A365D" stroke-width="15" stroke-dasharray="40 100" stroke-dashoffset="-100"/>
+                    <rect x="140" y="260" width="300" height="15" rx="5" fill="#E2E8F0"/>
+                    <rect x="140" y="290" width="300" height="15" rx="5" fill="#E2E8F0"/>
+                    <rect x="140" y="320" width="200" height="15" rx="5" fill="#E2E8F0"/>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <section class="stats-section">
+        <div class="stat-item">
+            <h2 id="stat-cidadaos">+500</h2>
+            <p>Demandas Captadas</p>
+        </div>
+        <div class="stat-item">
+            <h2 id="stat-bairros">42</h2>
+            <p>Bairros Mapeados</p>
+        </div>
+        <div class="stat-item">
+            <h2 id="stat-taxa" style="color: var(--accent-color);">85%</h2>
+            <p>Taxa de Resolução</p>
+        </div>
+    </section>
+
+    <section id="como-funciona" class="showcase">
+        <div class="section-header">
+            <h2>Por Dentro da Plataforma</h2>
+            <p>Como a tecnologia conecta o problema na rua com a solução na mesa do gestor.</p>
+        </div>
+
+        <div class="showcase-row">
+            <div class="svg-container">
+                <svg viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="260" height="560" rx="35" fill="#FFFFFF" stroke="#2D3748" stroke-width="12"/>
+                    <rect x="20" y="20" width="260" height="120" rx="30" fill="#1A365D"/>
+                    <rect x="20" y="100" width="260" height="40" fill="#1A365D"/> <text x="150" y="90" font-family="Arial" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">EloEleitoral</text>
+                    <rect x="40" y="160" width="220" height="15" rx="5" fill="#E2E8F0"/>
+                    <rect x="40" y="185" width="220" height="40" rx="8" fill="#F7FAFC" stroke="#CBD5E0" stroke-width="2"/>
+                    
+                    <rect x="40" y="250" width="220" height="15" rx="5" fill="#E2E8F0"/>
+                    <rect x="40" y="275" width="220" height="40" rx="8" fill="#F7FAFC" stroke="#CBD5E0" stroke-width="2"/>
+                    
+                    <rect x="40" y="340" width="220" height="15" rx="5" fill="#E2E8F0"/>
+                    <rect x="40" y="365" width="220" height="80" rx="8" fill="#F7FAFC" stroke="#CBD5E0" stroke-width="2"/>
+                    
+                    <rect x="40" y="480" width="220" height="50" rx="25" fill="#38A169"/>
+                    <text x="150" y="512" font-family="Arial" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Enviar Demanda</text>
+                </svg>
+            </div>
+            
+            <div class="showcase-text">
+                <h3><i class="ph-fill ph-device-mobile"></i> A Visão do Cidadão</h3>
+                <p>O eleitor não quer burocracia. O portal foi desenhado com o conceito "Mobile-First", rodando liso em qualquer smartphone, sem precisar baixar aplicativos.</p>
+                <ul>
+                    <li><i class="ph-bold ph-check-circle"></i> Acesso via link direto ou QR Code no material de campanha.</li>
+                    <li><i class="ph-bold ph-check-circle"></i> Bairros pré-cadastrados (Ex: CPA, Coxipó, Tijucal).</li>
+                    <li><i class="ph-bold ph-check-circle"></i> Inteligência Artificial classifica a mensagem automaticamente.</li>
+                </ul>
+                <div class="impact-box">
+                    <h4>Qual o impacto para a Campanha?</h4>
+                    <p>Ao dar voz ao cidadão de forma fácil, você constrói uma <strong>base de contatos segmentada (CRM Eleitoral)</strong> validada. Você sabe exatamente quem pediu o quê e onde.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="showcase-row reverse">
+            <div class="svg-container">
+                <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="10" width="580" height="380" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="4"/>
+                    <rect x="10" y="10" width="580" height="40" rx="10" fill="#F7FAFC"/>
+                    <circle cx="30" cy="30" r="5" fill="#E53E3E"/>
+                    <circle cx="50" cy="30" r="5" fill="#D69E2E"/>
+                    <circle cx="70" cy="30" r="5" fill="#38A169"/>
+                    
+                    <rect x="10" y="50" width="120" height="340" fill="#1A365D"/>
+                    <rect x="25" y="80" width="90" height="15" rx="5" fill="#FFFFFF" opacity="0.2"/>
+                    <rect x="25" y="110" width="90" height="15" rx="5" fill="#FFFFFF" opacity="0.2"/>
+                    <rect x="25" y="140" width="90" height="15" rx="5" fill="#FFFFFF" opacity="0.5"/>
+                    
+                    <rect x="150" y="70" width="130" height="60" rx="8" fill="#EBF8FF"/>
+                    <text x="165" y="100" font-family="Arial" font-size="24" font-weight="bold" fill="#2B6CB0">1.240</text>
+                    
+                    <rect x="295" y="70" width="130" height="60" rx="8" fill="#FEFCBF"/>
+                    <text x="310" y="100" font-family="Arial" font-size="24" font-weight="bold" fill="#B7791F">85</text>
+                    
+                    <rect x="440" y="70" width="130" height="60" rx="8" fill="#F0FFF4"/>
+                    <text x="455" y="100" font-family="Arial" font-size="24" font-weight="bold" fill="#2F855A">1.155</text>
+                    
+                    <rect x="150" y="150" width="420" height="120" rx="8" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="2"/>
+                    <rect x="180" y="190" width="25" height="60" rx="4" fill="#1A365D"/>
+                    <rect x="230" y="160" width="25" height="90" rx="4" fill="#38A169"/>
+                    <rect x="280" y="210" width="25" height="40" rx="4" fill="#3182CE"/>
+                    <rect x="330" y="170" width="25" height="80" rx="4" fill="#E53E3E"/>
+                    <rect x="380" y="200" width="25" height="50" rx="4" fill="#D69E2E"/>
+                    
+                    <rect x="150" y="290" width="420" height="30" rx="5" fill="#EDF2F7"/>
+                    <rect x="150" y="330" width="420" height="30" rx="5" fill="#EDF2F7"/>
+                    <rect x="480" y="295" width="80" height="20" rx="10" fill="#38A169"/>
+                    <rect x="480" y="335" width="80" height="20" rx="10" fill="#38A169"/>
+                </svg>
+            </div>
+
+            <div class="showcase-text">
+                <h3><i class="ph-fill ph-chart-pie-slice"></i> A Visão do Gabinete</h3>
+                <p>Enquanto o eleitor envia os dados, sua equipe gerencia tudo através de um Painel de Controle (Dashboard) focado em inteligência visual e resposta ágil.</p>
+                <ul>
+                    <li><i class="ph-bold ph-check-circle"></i> Gráficos em tempo real apontando as áreas mais carentes.</li>
+                    <li><i class="ph-bold ph-check-circle"></i> Integração com WhatsApp: responda o eleitor com 1 clique.</li>
+                    <li><i class="ph-bold ph-check-circle"></i> Exportação em CSV para relatórios e prestação de contas.</li>
+                </ul>
+                <div class="impact-box">
+                    <h4>Qual o impacto para a Gestão?</h4>
+                    <p>O eleitor que é ouvido e recebe um retorno (feedback), <strong>vira um multiplicador da sua campanha</strong>. O dashboard permite que o político aloque recursos cirurgicamente onde o problema está "doendo" mais na população.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="funcionalidades-premium" class="showcase" style="background-color: var(--bg-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 80px 5%; margin-top: -50px;">
+        <div class="section-header">
+            <h2>Gestão Completa de Campanha</h2>
+            <p>Muito mais do que captar demandas. Uma suíte inteira de inteligência e operação.</p>
+        </div>
+
+        <div class="showcase-row">
+            <div class="svg-container" style="background: white;">
+                <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Radar Bot Mockup -->
+                    <circle cx="200" cy="150" r="100" fill="transparent" stroke="#E2E8F0" stroke-width="2"/>
+                    <circle cx="200" cy="150" r="60" fill="transparent" stroke="#E2E8F0" stroke-width="2"/>
+                    <circle cx="200" cy="150" r="20" fill="#3182CE"/>
+                    <path d="M 200 150 L 280 70" stroke="#3182CE" stroke-width="4" opacity="0.6"/>
+                    <circle cx="280" cy="70" r="8" fill="#38A169"/>
+                    <path d="M 200 150 L 120 230" stroke="#3182CE" stroke-width="4" opacity="0.6"/>
+                    <circle cx="120" cy="230" r="8" fill="#E53E3E"/>
+                    <!-- Tags -->
+                    <rect x="250" y="40" width="80" height="20" rx="10" fill="#F0FFF4"/>
+                    <text x="290" y="54" font-family="Arial" font-size="10" font-weight="bold" fill="#2F855A" text-anchor="middle">Instagram</text>
+                    <rect x="50" y="240" width="80" height="20" rx="10" fill="#FFF5F5"/>
+                    <text x="90" y="254" font-family="Arial" font-size="10" font-weight="bold" fill="#C53030" text-anchor="middle">Twitter</text>
+                </svg>
+            </div>
+            
+            <div class="showcase-text">
+                <h3><i class="ph-fill ph-radar"></i> Bot de Monitoramento Social</h3>
+                <p>Nossa mais nova Inteligência Artificial rastreia a internet 24h por dia para saber o que o eleitor raiz está falando sobre seu nome e sua campanha.</p>
+                <ul>
+                    <li><i class="ph-bold ph-check-circle"></i> Gráfico de sentimento (Positivo, Neutro, Negativo).</li>
+                    <li><i class="ph-bold ph-check-circle"></i> Termômetro de palavras-chave e hashtags.</li>
+                    <li><i class="ph-bold ph-check-circle"></i> Feed em tempo real puxando menções do Twitter e Instagram.</li>
+                </ul>
+                <div class="impact-box">
+                    <h4>Prevenção de Crise</h4>
+                    <p>Ao monitorar a temperatura das redes em tempo real, você apaga "incêndios" de fama negativa antes que eles se espalhem em grupos de WhatsApp.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Pronto para profissionalizar seu mandato?</h2>
+        <p>Acesse as áreas interativas agora mesmo para testar o fluxo completo de captação e gestão de demandas.</p>
+        <div class="hero-buttons" style="justify-content: center; margin-top: 20px;">
+            <a href="dialogo.html" class="btn" style="background: white; color: var(--primary-color);">Simular como Eleitor</a>
+            <a href="painel.html" class="btn btn-success">Acessar Painel Gerencial</a>
+        </div>
+    </section>
+
+    <footer>
+        <div style="margin-bottom: 20px; color: var(--primary-color); font-weight: bold; font-size: 1.2rem;">
+            <i class="ph-fill ph-chat-circle-text"></i> EloEleitoral
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+            © 2026 EloEleitoral. Desenvolvido com inteligência por CerradoTech.<br>
+            Tecnologia a serviço de campanhas e mandatos modernos.
+        </p>
+        
+        <a href="configuracoes.html" class="footer-admin-link">
+            <i class="ph-fill ph-gear"></i> Configurações do Sistema
+        </a>
+    </footer>
+
+    <script type="module" src="js/pages/index-controller.js"></script>
+</body>
+</html>

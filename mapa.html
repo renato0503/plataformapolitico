@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Eleitoral — EloEleitoral</title>
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/painel.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+
+    <style>
+        /* Estilos do Mapa e Container */
+        #mapa-container {
+            height: calc(100vh - 190px);
+            width: 100%;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            z-index: 1;
+        }
+        .leaflet-popup-content p { margin: 8px 0; }
+        
+        /* Layout Principal */
+        body { margin: 0; background-color: var(--bg-color); overflow-x: hidden; }
+        .dashboard-layout { display: flex; min-height: 100vh; }
+        
+        /* Estilos do Menu Sidebar (serão injetados aqui) */
+        .sidebar { width: 260px; background: var(--surface-color); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; z-index: 100; }
+        .sidebar-header { padding: 25px 20px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--primary-color); font-size: 1.2rem; }
+        .sidebar-header i { color: var(--accent-color); font-size: 1.8rem; }
+        .sidebar-nav { padding: 10px 0 20px 0; flex: 1; overflow-y: auto; overflow-x: hidden; }
+        .nav-category { padding: 20px 20px 5px 20px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--text-muted); opacity: 0.7; }
+        .nav-item { padding: 12px 20px; display: flex; align-items: center; gap: 12px; color: var(--text-muted); text-decoration: none; font-weight: 500; transition: all 0.2s; border-left: 3px solid transparent; }
+        .nav-item:hover { background: var(--bg-color); color: var(--primary-color); }
+        .nav-item.active { background: #EBF8FF; color: var(--primary-color); border-left-color: var(--primary-color); font-weight: 600; }
+        .nav-item i { font-size: 1.4rem; }
+        .sidebar-footer { padding: 20px; border-top: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-muted); }
+
+        .main-wrapper { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .top-header { background: var(--surface-color); padding: 15px 30px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 90; }
+        .header-search { display: flex; align-items: center; background: var(--bg-color); padding: 8px 15px; border-radius: var(--radius-md); width: 300px; border: 1px solid var(--border-color); }
+        .header-search input { border: none; background: transparent; outline: none; width: 100%; margin-left: 10px; font-family: inherit; }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .user-profile { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--text-main); }
+        .avatar { width: 35px; height: 35px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+        .painel-content { padding: 30px; max-width: 1400px; margin: 0 auto; width: 100%; }
+        .page-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        
+        <div id="sidebar-container"></div>
+
+        <div class="main-wrapper">
+            <header class="top-header">
+                <div class="header-search">
+                    <i class="ph ph-magnifying-glass" style="color: var(--text-muted);"></i>
+                    <input type="text" id="filtro-mapa" placeholder="Pesquise para centralizar (Ex: CPA)...">
+                </div>
+                <div class="header-actions">
+                    <div class="user-profile"><div class="avatar">GB</div> Gabinete</div>
+                </div>
+            </header>
+
+            <main class="painel-content">
+                <div class="page-title">
+                    <h2>Geolocalização de Demandas</h2>
+                    
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <button id="btn-toggle-calor" class="btn btn-outline" style="border-color: #E53E3E; color: #E53E3E;">
+                            <i class="ph-fill ph-fire" style="margin-right: 5px;"></i> Ver Mapa de Calor
+                        </button>
+                        <span class="badge" style="background: var(--info); color: white; padding: 8px 15px;">
+                            Total Plotado: <span id="map-count">0</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div id="mapa-container"></div>
+                
+                <p style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">
+                    *Coordenadas processadas via NLP baseadas na região informada pelo eleitor.
+                </p>
+            </main>
+        </div>
+    </div>
+    <script type="module" src="js/pages/mapa-controller.js"></script>
+</body>
+</html>

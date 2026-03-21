@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills — EloEleitoral</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/skills.css">
+</head>
+<body>
+    <header class="skills-header">
+        <div class="container">
+            <h1>🎯 Skills do Gabinete</h1>
+            <p>Gerencie as competências e habilidades da sua equipe</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="skills-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="stat-total">0</div>
+                <div class="stat-label">Total de Skills</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="stat-media">0</div>
+                <div class="stat-label">Nível Médio</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="stat-categorias">0</div>
+                <div class="stat-label">Categorias</div>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div class="search-box" style="flex: 1; max-width: 400px;">
+                <input type="text" id="search-input" class="form-control" placeholder="Buscar skills...">
+            </div>
+            <button id="btn-nova-skill" class="btn btn-success">
+                ➕ Nova Skill
+            </button>
+        </div>
+
+        <div class="filter-tabs" id="filter-tabs"></div>
+
+        <div class="skills-grid" id="skills-grid"></div>
+    </main>
+
+    <div id="modal-skills" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-titulo">Nova Skill</h2>
+                <button id="modal-close" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="form-skill">
+                    <div class="form-group">
+                        <label class="form-label">Ícone</label>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div id="icon-preview" style="width: 48px; height: 48px; background: var(--bg-color); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🎯</div>
+                            <div id="icon-picker" class="icon-picker"></div>
+                        </div>
+                        <input type="hidden" id="cor-selecionada" value="#3182CE">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="titulo">Título da Skill</label>
+                        <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Ex: Comunicação Popular" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="descricao">Descrição</label>
+                        <textarea id="descricao" name="descricao" class="form-control" rows="3" placeholder="Descreva brevemente esta competência..." required></textarea>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label" for="categoria">Categoria</label>
+                            <select id="categoria" name="categoria" class="form-control" required>
+                                <option value="Transversal">Transversal</option>
+                                <option value="Gestão">Gestão</option>
+                                <option value="Política">Política</option>
+                                <option value="Técnica">Técnica</option>
+                                <option value="Comunicação">Comunicação</option>
+                                <option value="Liderança">Liderança</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Cor</label>
+                            <div id="color-picker" class="color-picker"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nível (1-5)</label>
+                        <input type="hidden" id="nivel-input" name="nivel" value="1">
+                        <div class="level-selector">
+                            <button type="button">1</button>
+                            <button type="button">2</button>
+                            <button type="button">3</button>
+                            <button type="button">4</button>
+                            <button type="button">5</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-cancelar" class="btn btn-outline">Cancelar</button>
+                <button type="submit" form="form-skill" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="feedback-delete" class="feedback-delete hidden">
+        <span>Excluir "<strong id="skill-para-excluir"></strong>"?</span>
+        <button onclick="excluirSkillConfirmado()">Sim</button>
+        <button onclick="cancelarExclusao()">Não</button>
+    </div>
+
+    <script type="module" src="js/pages/skills-controller.js"></script>
+</body>
+</html>
